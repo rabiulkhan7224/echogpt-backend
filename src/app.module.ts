@@ -24,6 +24,7 @@ import { SessionsModule } from './modules/sessions/sessions.module';
         '.env.test.local',
         '.env.production.local',
       ],
+      expandVariables: true,
     }),
 
     DatabaseModule,
