@@ -7,6 +7,7 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PaginationMetaDto } from '../dto/api-response.dto';
+import { Reflector } from '@nestjs/core';
 
 export interface Envelope<T> {
   success: boolean;
@@ -26,6 +27,7 @@ export class TransformInterceptor<T> implements NestInterceptor<
   T,
   Envelope<T>
 > {
+  constructor(private readonly reflector: Reflector) {}
   intercept(
     ctx: ExecutionContext,
     next: CallHandler<T | CustomPayload<T>>,
