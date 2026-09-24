@@ -7,6 +7,9 @@ import configuration from './config/configuration';
 import { validateEnv } from './config/env.validation';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { TransformInterceptor } from './common/interceptors/transform.interceptor';
+import { UsersModule } from './modules/users/users.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { SessionsModule } from './modules/sessions/sessions.module';
 
 @Module({
   imports: [
@@ -24,6 +27,12 @@ import { TransformInterceptor } from './common/interceptors/transform.intercepto
     }),
 
     DatabaseModule,
+
+    UsersModule,
+
+    AuthModule,
+
+    SessionsModule,
   ],
   controllers: [AppController],
   providers: [

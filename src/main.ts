@@ -63,12 +63,12 @@ async function bootstrap(): Promise<void> {
   // Listen
   // ───────────────────────────────────────────────────────────
   app.useSecurityHeaders();
-  await app.listen(port, '0.0.0.0');
+  await app.listen(port ?? 3000);
 
   const url = await app.getUrl();
   const swaggerPath = config.get<string>('swagger.path') ?? 'api/docs';
 
-  logger.log(`${config.get('appName') ?? 'EchoGPT API'} running`);
+  logger.log(`🚀 ${config.get('appName') ?? 'EchoGPT API'} running`);
   logger.log(`   Environment : ${nodeEnv}`);
   logger.log(`   Base URL    : ${url}/${apiPrefix}`);
   if (config.get<boolean>('swagger.enabled')) {
