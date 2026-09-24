@@ -1,7 +1,7 @@
 # ─────────────────────────────────────────────────────────────
 # Stage 1: builder — install all deps + compile TS
 # ─────────────────────────────────────────────────────────────
-FROM node:20-alpine AS builder
+FROM node:22.22.3-alpine AS builder
 
 WORKDIR /app
 
@@ -21,7 +21,7 @@ RUN ls dist/database/migrations || \
 # ─────────────────────────────────────────────────────────────
 # Stage 2: prod-deps — production-only node_modules
 # ─────────────────────────────────────────────────────────────
-FROM node:20-alpine AS prod-deps
+FROM node:22.22.3-alpine AS prod-deps
 
 WORKDIR /app
 
@@ -32,7 +32,7 @@ RUN npm ci --omit=dev && npm cache clean --force
 # ─────────────────────────────────────────────────────────────
 # Stage 3: runner — minimal runtime
 # ─────────────────────────────────────────────────────────────
-FROM node:20-alpine AS runner
+FROM node:22.22.3-alpine AS runner
 
 WORKDIR /app
 
