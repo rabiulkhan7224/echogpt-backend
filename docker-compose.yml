@@ -1,0 +1,72 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: echogpt-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER:-echogpt}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-echogpt}
+      POSTGRES_DB: ${DB_NAME:-echogpt}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-echogpt} -d ${DB_NAME:-echogpt}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    networks:
+      - echogpt-net
+
+  redis:
+    image: redis:7-alpine
+    container_name: echogpt-redis
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks:
+      - echogpt-net
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: echogpt-api
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      # Inside the compose network, override host/port:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      REDIS_URL: redis://redis:6379
+    ports:
+      - "${PORT:-3000}:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    # Optional: run migrations on boot
+    # command: sh -c "npm run migration:run && node dist/main"
+    networks:
+      - echogpt-net
+
+volumes:
+  pgdata:
+  redisdata:
+
+networks:
+  echogpt-net:
+    driver: bridge

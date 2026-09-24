@@ -1,8 +1,8 @@
 {
   "name": "echogpt-backend",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "EchoGPT backend — NestJS + PostgreSQL + TypeORM",
+  "author": "md Rabiul hasan",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
