@@ -18,6 +18,7 @@ import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { randomUUID } from 'crypto';
 import { SessionsService } from '../sessions/sessions.service';
 import { LoginDto } from './dto/login.dto';
+import { SubscriptionsService } from '../subscriptions/subscriptions.service';
 
 @Injectable()
 export class AuthService {
@@ -27,6 +28,7 @@ export class AuthService {
     @InjectRepository(RoleEntity)
     private readonly roles: Repository<RoleEntity>,
     private readonly sessions: SessionsService,
+    private readonly subscriptions: SubscriptionsService,
     private readonly jwt: JwtService,
     private readonly config: ConfigService,
     private readonly dataSource: DataSource,
@@ -59,7 +61,7 @@ export class AuthService {
       });
       const savedUser = await m.save(u);
       //   TODO: Uncomment this line when the subscriptions module is implemented
-      //   await this.subscriptions.createFreeForUser(m, savedUser.id);
+      await this.subscriptions.createFreeForUser(m, savedUser.id);
       return savedUser;
     });
     // Ensure roles array is attached for token payload
