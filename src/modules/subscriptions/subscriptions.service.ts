@@ -12,6 +12,7 @@ import {
   PlanName,
   SubscriptionStatus,
 } from '@/common/constants/plans.constant';
+
 export type QuotaResource = 'requests' | 'searches';
 @Injectable()
 export class SubscriptionsService {
