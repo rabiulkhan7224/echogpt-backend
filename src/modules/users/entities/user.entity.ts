@@ -17,15 +17,14 @@ import { BaseEntity } from '@/common/entities/base.entity';
 
 @Entity({ name: 'users' })
 export class UserEntity extends BaseEntity {
-  @Index({ unique: true })
-  @Column({ type: 'varchar', length: 255 })
+  @Column({ type: 'varchar', length: 255, nullable: false, unique: true })
   email!: string;
 
   @Column({ name: 'password_hash', type: 'varchar', length: 255 })
   passwordHash!: string;
 
-  @Column({ name: 'full_name', type: 'varchar', length: 120, nullable: true })
-  fullName?: string | null;
+  @Column({ name: 'full_name', type: 'varchar', length: 120, nullable: false })
+  fullName!: string;
 
   @Column({ name: 'avatar_url', type: 'varchar', length: 500, nullable: true })
   avatarUrl?: string | null;

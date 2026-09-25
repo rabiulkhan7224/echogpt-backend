@@ -10,6 +10,7 @@ import { TransformInterceptor } from './common/interceptors/transform.intercepto
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { SessionsModule } from './modules/sessions/sessions.module';
+import { SubscriptionsModule } from './modules/subscriptions/subscriptions.module';
 
 @Module({
   imports: [
@@ -34,6 +35,8 @@ import { SessionsModule } from './modules/sessions/sessions.module';
     AuthModule,
 
     SessionsModule,
+
+    SubscriptionsModule,
   ],
   controllers: [AppController],
   providers: [

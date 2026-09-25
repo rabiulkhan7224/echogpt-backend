@@ -1,6 +1,7 @@
 import {
   ConflictException,
   Injectable,
+  InternalServerErrorException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -42,13 +43,18 @@ export class AuthService {
     const userRole = await this.roles.findOne({
       where: { name: RoleName.USER },
     });
-    if (!userRole) throw new Error('USER role missing — run seeds');
+    if (!userRole) {
+      // Unreachable after bootstrap — fail loud if it ever happens
+      throw new InternalServerErrorException(
+        'Server misconfigured: USER role missing',
+      );
+    }
     const passwordHash = await hashPassword(dto.password);
     const user = await this.dataSource.transaction(async (m) => {
       const u = m.create(UserEntity, {
         email: normalizedEmail,
         passwordHash,
-        fullName: dto.fullName ?? null,
+        fullName: dto.fullName,
         roles: [userRole],
       });
       const savedUser = await m.save(u);

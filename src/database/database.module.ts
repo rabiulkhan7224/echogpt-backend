@@ -21,6 +21,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         ssl: config.get<boolean>('db.ssl')
           ? { rejectUnauthorized: false }
           : false,
+        logging: config.get<boolean>('db.logging', false),
       }),
     }),
   ],

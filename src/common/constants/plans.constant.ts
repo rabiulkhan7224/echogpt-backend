@@ -1,11 +1,11 @@
-export enum ProviderType {
-  OPENAI = 'OPENAI',
-  CLAUDE = 'CLAUDE',
-  GEMINI = 'GEMINI',
+export enum PlanName {
+  FREE = 'FREE',
+  PREMIUM = 'PREMIUM',
 }
 
-export enum MessageRole {
-  USER = 'USER',
-  ASSISTANT = 'ASSISTANT',
-  SYSTEM = 'SYSTEM',
+export enum SubscriptionStatus {
+  ACTIVE = 'ACTIVE',
+  CANCELLED = 'CANCELLED',
+  EXPIRED = 'EXPIRED',
+  PAST_DUE = 'PAST_DUE',
 }

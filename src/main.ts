@@ -32,7 +32,6 @@ async function bootstrap(): Promise<void> {
   // Routing
   // ───────────────────────────────────────────────────────────
   app.setGlobalPrefix(apiPrefix);
-  app.enableVersioning({ type: VersioningType.URI, defaultVersion: '1' });
 
   app.useGlobalPipes(
     new ValidationPipe({

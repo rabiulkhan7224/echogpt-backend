@@ -15,7 +15,7 @@ export class RegisterDto {
     maxLength: 255,
   })
   @IsEmail({}, { message: 'Invalid email address format' })
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'Email cannot be empty' })
   @MaxLength(255)
   @Transform(({ value }: { value: string }) => value?.trim().toLowerCase())
   email!: string;
@@ -27,7 +27,7 @@ export class RegisterDto {
     description: 'User password (minimum 8 characters, maximum 72)',
   })
   @IsString()
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'Password cannot be empty' })
   @MinLength(8, { message: 'Password must be at least 8 characters long' })
   @MaxLength(72, { message: 'Password cannot exceed 72 characters' })
   password!: string;
@@ -38,8 +38,8 @@ export class RegisterDto {
     description: 'Full name of the user',
   })
   @IsString()
-  @IsNotEmpty()
-  @MaxLength(120)
-  @Transform(({ value }: { value: string }) => value?.trim())
+  @IsNotEmpty({ message: 'fullName cannot be empty.' })
+  @MinLength(3)
+  @MaxLength(96)
   fullName!: string;
 }
