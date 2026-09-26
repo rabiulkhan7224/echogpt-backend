@@ -11,6 +11,7 @@ import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { SessionsModule } from './modules/sessions/sessions.module';
 import { SubscriptionsModule } from './modules/subscriptions/subscriptions.module';
+import { ProvidersModule } from './modules/providers/providers.module';
 
 @Module({
   imports: [
@@ -37,6 +38,8 @@ import { SubscriptionsModule } from './modules/subscriptions/subscriptions.modul
     SessionsModule,
 
     SubscriptionsModule,
+
+    ProvidersModule,
   ],
   controllers: [AppController],
   providers: [
