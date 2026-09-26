@@ -14,6 +14,8 @@ import { SubscriptionsModule } from './modules/subscriptions/subscriptions.modul
 import { ProvidersModule } from './modules/providers/providers.module';
 import { ChatModule } from './modules/chat/chat.module';
 import { SearchModule } from './modules/search/search.module';
+import { UsageModule } from './modules/usage/usage.module';
+import { AdminModule } from './modules/admin/admin.module';
 
 @Module({
   imports: [
@@ -46,6 +48,10 @@ import { SearchModule } from './modules/search/search.module';
     ChatModule,
 
     SearchModule,
+
+    UsageModule,
+
+    AdminModule,
   ],
   controllers: [AppController],
   providers: [

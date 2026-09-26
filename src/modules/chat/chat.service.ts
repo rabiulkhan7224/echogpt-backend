@@ -6,6 +6,7 @@ import { ChatSessionsService } from './chat-sessions.service';
 import { SubscriptionsService } from '@modules/subscriptions/subscriptions.service';
 import { MessageRole } from '@common/constants/providers.constant';
 import { ChatMessageInput } from '@modules/providers/adapters/provider-adapter.interface';
+import { UsageService } from '../usage/usage.service';
 
 @Injectable()
 export class ChatService {

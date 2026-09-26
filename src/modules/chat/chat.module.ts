@@ -8,6 +8,7 @@ import { ChatController } from './chat.controller';
 import { ChatSessionsController } from './chat-sessions.controller';
 import { ChatService } from './chat.service';
 import { ChatSessionsService } from './chat-sessions.service';
+import { UsageModule } from '../usage/usage.module';
 
 @Module({
   imports: [
