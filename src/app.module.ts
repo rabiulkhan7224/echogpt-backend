@@ -16,6 +16,7 @@ import { ChatModule } from './modules/chat/chat.module';
 import { SearchModule } from './modules/search/search.module';
 import { UsageModule } from './modules/usage/usage.module';
 import { AdminModule } from './modules/admin/admin.module';
+import { HealthModule } from './modules/health/health.module';
 
 @Module({
   imports: [
@@ -52,6 +53,8 @@ import { AdminModule } from './modules/admin/admin.module';
     UsageModule,
 
     AdminModule,
+
+    HealthModule,
   ],
   controllers: [AppController],
   providers: [
