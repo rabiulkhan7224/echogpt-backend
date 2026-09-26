@@ -12,6 +12,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { SessionsModule } from './modules/sessions/sessions.module';
 import { SubscriptionsModule } from './modules/subscriptions/subscriptions.module';
 import { ProvidersModule } from './modules/providers/providers.module';
+import { ChatModule } from './modules/chat/chat.module';
 
 @Module({
   imports: [
@@ -40,6 +41,8 @@ import { ProvidersModule } from './modules/providers/providers.module';
     SubscriptionsModule,
 
     ProvidersModule,
+
+    ChatModule,
   ],
   controllers: [AppController],
   providers: [

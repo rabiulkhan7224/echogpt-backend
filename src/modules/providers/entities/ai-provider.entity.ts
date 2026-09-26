@@ -9,6 +9,7 @@ import {
 import { BaseEntity } from '@common/entities/base.entity';
 import { ProviderType } from '@common/constants/providers.constant';
 import { UserEntity } from '@modules/users/entities/user.entity';
+import { ChatMessageEntity } from '@/modules/chat/entities/chat-message.entity';
 // import { ChatMessageEntity } from '@modules/chat/entities/chat-message.entity';
 // import { ApiUsageLogEntity } from '@modules/usage/entities/api-usage-log.entity';
 
@@ -53,8 +54,8 @@ export class AiProviderEntity extends BaseEntity {
   @JoinColumn({ name: 'user_id' })
   user?: UserEntity | null;
 
-  //   @OneToMany(() => ChatMessageEntity, (m) => m.provider)
-  //   messages!: ChatMessageEntity[];
+  @OneToMany(() => ChatMessageEntity, (m) => m.provider)
+  messages!: ChatMessageEntity[];
 
   //   @OneToMany(() => ApiUsageLogEntity, (l) => l.provider)
   //   usageLogs!: ApiUsageLogEntity[];

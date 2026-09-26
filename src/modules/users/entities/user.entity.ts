@@ -11,6 +11,7 @@ import { RoleEntity } from './role.entity';
 import { SessionEntity } from '@modules/sessions/entities/session.entity';
 import { BaseEntity } from '@/common/entities/base.entity';
 import { SubscriptionEntity } from '@/modules/subscriptions/entities/subscription.entity';
+import { ChatSessionEntity } from '@/modules/chat/entities/chat-session.entity';
 // import { SubscriptionEntity } from '@modules/subscriptions/entities/subscription.entity';
 // import { ChatSessionEntity } from '@modules/chat/entities/chat-session.entity';
 // import { WebSearchEntity } from '@modules/search/entities/web-search.entity';
@@ -50,8 +51,8 @@ export class UserEntity extends BaseEntity {
   @OneToOne(() => SubscriptionEntity, (s) => s.user)
   subscription?: SubscriptionEntity;
 
-  //   @OneToMany(() => ChatSessionEntity, (c) => c.user)
-  //   chatSessions!: ChatSessionEntity[];
+  @OneToMany(() => ChatSessionEntity, (c) => c.user)
+  chatSessions!: ChatSessionEntity[];
 
   //   @OneToMany(() => WebSearchEntity, (w) => w.user)
   //   searches!: WebSearchEntity[];
