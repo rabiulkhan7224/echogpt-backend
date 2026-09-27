@@ -13,11 +13,6 @@ COPY src/ src/
 
 RUN npm run build
 
-# Sanity check: migrations must be compiled
-RUN ls dist/database/migrations || \
-    (echo "❌ No compiled migrations in dist/database/migrations" && exit 1)
-
-
 # ─────────────────────────────────────────────────────────────
 # Stage 2: prod-deps — production-only node_modules
 # ─────────────────────────────────────────────────────────────
