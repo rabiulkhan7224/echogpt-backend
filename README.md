@@ -388,12 +388,6 @@ Download the raw spec:
 curl http://localhost:3000/api/docs-json > openapi.json
 ```
 
-### Postman Collection
-
-A ready-to-import collection lives at:
-
-```
-postman/EchoGPT.postman_collection.json
 ```
 
 Set the collection variable `baseUrl` to `http://localhost:3000/api/v1` and the `token` variable to a valid access token.
@@ -504,16 +498,18 @@ Base path: `/api/v1`. All protected routes require `Authorization: Bearer <acces
 ### Entity Relationship Overview
 
 ```
+
 User ──1:N── Session
 User ──1:N── ApiUsageLog
 User ──1:1── Subscription
-User ──M:N── Role  (via user_roles)
+User ──M:N── Role (via user_roles)
 User ──1:N── ChatSession ──1:N── ChatMessage
 User ──1:N── WebSearch ──1:N── WebSearchResult
 Plan ──1:N── Subscription
 AiProvider ──1:N── ChatMessage
 AiProvider ──1:N── ApiUsageLog
-```
+
+````
 
 ### Tables
 
@@ -562,7 +558,7 @@ npm run migration:revert
 
 # Show status
 npm run typeorm -- migration:show
-```
+````
 
 **Rules:**
 
@@ -704,16 +700,6 @@ echogpt-backend/
 │       ├── admin/                     # Admin panel APIs
 │       └── health/                    # Liveness + DB health
 │
-├── docs/                              # Extended documentation
-│   ├── CONTEXT.md
-│   ├── STACK.md
-│   ├── PROJECT_STRUCTURE.md
-│   ├── DATABASE.md
-│   ├── API.md
-│   └── DEVELOPMENT.md
-│
-├── postman/                           # Postman collection
-│   └── EchoGPT.postman_collection.json
 │
 ├── test/                              # E2E tests
 │   └── jest-e2e.json
@@ -795,46 +781,6 @@ If you find a security issue, please email **mdrabiulkhanbabo@gmail.com** rather
 - Affected endpoint or file
 - Reproduction steps
 - Impact assessment (if known)
-
----
-
-## Screenshots
-
-### Swagger UI — Full API Overview
-
-![Swagger UI](docs/screenshots/swagger-overview.png)
-
-> Interactive API documentation at `/api/docs` — every endpoint grouped by tag with full request/response schemas.
-
-### Authentication — Authorize with Bearer Token
-
-![Swagger Authorize](docs/screenshots/swagger-authorize.png)
-
-> Paste an access token once; the Authorize button persists it for every subsequent request.
-
-### Chat Completions — Send a Prompt
-
-![Chat Completion](docs/screenshots/chat-completion.png)
-
-> `POST /chat/completions` — send a prompt, get a completion with token usage and latency.
-
-### Admin Dashboard — Aggregated Statistics
-
-![Admin Dashboard](docs/screenshots/admin-dashboard.png)
-
-> `GET /admin/dashboard` — user counts, subscription split, request volume, provider status.
-
-### Database — Migration History
-
-![Migrations](docs/screenshots/migrations.png)
-
-> All migrations committed under `src/database/migrations/`, applied in order.
-
-### Health Check — Liveness Probe
-
-![Health](docs/screenshots/health.png)
-
-> `GET /health` returns 200 with a JSON envelope wrapping the service status.
 
 ---
 
