@@ -9,26 +9,27 @@ import {
   Patch,
   Query,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
+
 import { AnalyticsService } from './analytics.service';
 import { AdminService } from './admin.service';
 import { UsageService } from '@modules/usage/usage.service';
-import { Roles } from '@common/decorators/roles.decorator';
 import { PaginationQueryDto } from '@common/dto/pagination-query.dto';
 import { ParseUuidPipe } from '@common/pipes/parse-uuid.pipe';
-import { PlanName, SubscriptionStatus } from '@common/constants/plans.constant';
-import { RoleName } from '@/common/constants/roles.constant';
+import { Roles } from '@common/decorators/roles.decorator';
+import { RoleName } from '@common/constants/roles.constant';
 
-class UpdateUserStatusDto {
-  isActive!: boolean;
-}
-class UpdateUserRolesDto {
-  roles!: RoleName[];
-}
-class UpdateSubscriptionDto {
-  planName?: PlanName;
-  status?: SubscriptionStatus;
-}
+import { UpdateUserStatusDto } from './dto/update-user-status.dto';
+import { UpdateUserRolesDto } from './dto/update-user-roles.dto';
+import { UpdateSubscriptionDto } from './dto/update-subscription.dto';
+import { UsageLogsQueryDto } from './dto/usage-logs-query.dto';
+import { UsageAnalyticsQueryDto } from './dto/usage-analytics-query.dto';
+import { ListUsersQueryDto } from './dto/list-users-query.dto';
 
 @ApiTags('admin')
 @ApiBearerAuth('access-token')
@@ -43,22 +44,25 @@ export class AdminController {
 
   @Get('dashboard')
   @ApiOperation({ summary: 'Dashboard statistics' })
+  @ApiOkResponse({ description: 'Aggregated counters' })
   dashboard() {
     return this.analytics.dashboard();
   }
 
   @Get('analytics/usage')
-  @ApiOperation({ summary: 'Requests over time' })
-  usageAnalytics(@Query('from') from: string, @Query('to') to: string) {
-    const f = from ? new Date(from) : new Date(Date.now() - 30 * 86400_000);
-    const t = to ? new Date(to) : new Date();
-    return this.analytics.usageOverTime(f, t);
+  @ApiOperation({ summary: 'Requests over time (defaults to last 30 days)' })
+  usageAnalytics(@Query() q: UsageAnalyticsQueryDto) {
+    const from = q.from
+      ? new Date(q.from)
+      : new Date(Date.now() - 30 * 86400_000);
+    const to = q.to ? new Date(q.to) : new Date();
+    return this.analytics.usageOverTime(from, to);
   }
 
   @Get('users')
-  @ApiOperation({ summary: 'List users' })
-  listUsers(@Query() page: PaginationQueryDto, @Query('q') q?: string) {
-    return this.admin.listUsers(page, q);
+  @ApiOperation({ summary: 'List users with optional search' })
+  listUsers(@Query() q: ListUsersQueryDto) {
+    return this.admin.listUsers(q, q.q);
   }
 
   @Get('users/:id')
@@ -77,7 +81,7 @@ export class AdminController {
   }
 
   @Patch('users/:id/roles')
-  @ApiOperation({ summary: 'Assign roles to a user' })
+  @ApiOperation({ summary: 'Replace a user\u2019s roles' })
   setRoles(
     @Param('id', ParseUuidPipe) id: string,
     @Body() body: UpdateUserRolesDto,
@@ -114,29 +118,22 @@ export class AdminController {
   }
 
   @Get('logs')
-  @ApiOperation({ summary: 'Paginated API usage logs' })
-  logs(
-    @Query() page: PaginationQueryDto,
-    @Query('userId') userId?: string,
-    @Query('endpoint') endpoint?: string,
-    @Query('statusCode') statusCode?: string,
-    @Query('from') from?: string,
-    @Query('to') to?: string,
-  ) {
+  @ApiOperation({ summary: 'Paginated API usage logs with filters' })
+  logs(@Query() q: UsageLogsQueryDto) {
     return this.usage.paginate({
-      page: page.page,
-      limit: page.limit,
-      userId,
-      endpoint,
-      statusCode: statusCode ? Number(statusCode) : undefined,
-      from: from ? new Date(from) : undefined,
-      to: to ? new Date(to) : undefined,
+      page: q.page,
+      limit: q.limit,
+      userId: q.userId,
+      endpoint: q.endpoint,
+      statusCode: q.statusCode,
+      from: q.from ? new Date(q.from) : undefined,
+      to: q.to ? new Date(q.to) : undefined,
     });
   }
 
   @Get('health')
   @ApiOperation({ summary: 'System health for admin' })
-  async systemHealth() {
+  systemHealth() {
     return {
       status: 'ok',
       timestamp: new Date().toISOString(),

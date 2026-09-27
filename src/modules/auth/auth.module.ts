@@ -9,6 +9,7 @@ import { SessionsModule } from '../sessions/sessions.module';
 import { AuthController } from './auth.controller';
 import { SubscriptionsModule } from '../subscriptions/subscriptions.module';
 import { SubscriptionsService } from '../subscriptions/subscriptions.service';
+import { JwtStrategy } from './strategies/jwt.strategy';
 
 @Module({
   imports: [
@@ -18,7 +19,7 @@ import { SubscriptionsService } from '../subscriptions/subscriptions.service';
     SessionsModule,
     SubscriptionsModule,
   ],
-  providers: [AuthService],
+  providers: [AuthService, JwtStrategy],
   controllers: [AuthController],
   exports: [AuthService],
 })

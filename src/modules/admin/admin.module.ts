@@ -9,6 +9,7 @@ import { SubscriptionEntity } from '@modules/subscriptions/entities/subscription
 import { PlanEntity } from './../subscriptions/entities/plan.entity';
 import { AiProviderEntity } from '@modules/providers/entities/ai-provider.entity';
 import { ApiUsageLogEntity } from '@modules/usage/entities/api-usage-log.entity';
+import { UsageModule } from '../usage/usage.module';
 
 @Module({
   imports: [
