@@ -149,7 +149,7 @@
 └──────────────────────┬─────────────────────────────┘
                        │
 ┌──────────────────────▼─────────────────────────────┐
-│  PostgreSQL 16                                     │
+│  PostgreSQL 17                                     │
 └────────────────────────────────────────────────────┘
 ```
 
@@ -185,7 +185,7 @@
 | ---------------- | --------------------------------- |
 | Node.js          | ≥ 20.19 (22.12+ recommended)      |
 | npm              | ≥ 10                              |
-| PostgreSQL       | ≥ 16 (Docker image provided)      |
+| PostgreSQL       | ≥ 17 (Docker image provided)      |
 | Docker + Compose | Latest (optional but recommended) |
 | Git              | Latest                            |
 
@@ -388,8 +388,6 @@ Download the raw spec:
 curl http://localhost:3000/api/docs-json > openapi.json
 ```
 
-```
-
 Set the collection variable `baseUrl` to `http://localhost:3000/api/v1` and the `token` variable to a valid access token.
 
 ---
@@ -509,7 +507,7 @@ Plan ──1:N── Subscription
 AiProvider ──1:N── ChatMessage
 AiProvider ──1:N── ApiUsageLog
 
-````
+```
 
 ### Tables
 
@@ -558,7 +556,7 @@ npm run migration:revert
 
 # Show status
 npm run typeorm -- migration:show
-````
+```
 
 **Rules:**
 
