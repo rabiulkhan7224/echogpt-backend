@@ -4,6 +4,7 @@ import { ProviderAdapter } from './adapters/provider-adapter.interface';
 import { OpenAiAdapter } from './adapters/openai.adapter';
 import { ClaudeAdapter } from './adapters/claude.adapter';
 import { GeminiAdapter } from './adapters/gemini.adapter';
+import { OpenRouterAdapter } from './adapters/openrouter.adapter';
 
 @Injectable()
 export class ProviderFactory {
@@ -13,11 +14,13 @@ export class ProviderFactory {
     openai: OpenAiAdapter,
     claude: ClaudeAdapter,
     gemini: GeminiAdapter,
+    openrouter: OpenRouterAdapter,
   ) {
     this.adapters = new Map<ProviderType, ProviderAdapter>([
       [openai.type, openai],
       [claude.type, claude],
       [gemini.type, gemini],
+      [openrouter.type, openrouter],
     ]);
   }
 

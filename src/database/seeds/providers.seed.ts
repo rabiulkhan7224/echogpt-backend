@@ -40,6 +40,13 @@ export async function seedProviders(ds: DataSource): Promise<void> {
       baseUrl: 'https://generativelanguage.googleapis.com/v1beta',
       placeholderKey: process.env.GEMINI_SEED_KEY ?? 'sk-placeholder-gemini',
     },
+    {
+      type: ProviderType.OPENROUTER,
+      name: 'OpenRouter (system)',
+      defaultModel: 'qwen/qwen3.8-27b:free',
+      baseUrl: 'https://openrouter.ai/api/v1',
+      placeholderKey: process.env.OPENROUTER_SEED_KEY ?? 'sk-or-placeholder',
+    },
   ];
 
   for (const s of seeds) {

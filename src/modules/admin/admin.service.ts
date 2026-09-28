@@ -29,12 +29,13 @@ export class AdminService {
     const qb = this.users
       .createQueryBuilder('u')
       .leftJoinAndSelect('u.roles', 'r')
-      .orderBy('u.created_at', 'DESC')
+      .orderBy('u.createdAt', 'DESC')
       .skip(page.skip)
       .take(page.limit);
 
-    if (q)
+    if (q) {
       qb.where('u.email ILIKE :q OR u.full_name ILIKE :q', { q: `%${q}%` });
+    }
 
     const [items, total] = await qb.getManyAndCount();
     return {

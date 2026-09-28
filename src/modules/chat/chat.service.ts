@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, HttpException, HttpStatus } from '@nestjs/common';
 import { SendPromptDto } from './dto/send-prompt.dto';
 import { ProvidersService } from '@modules/providers/providers.service';
 import { ProviderFactory } from '@modules/providers/provider.factory';
@@ -7,7 +7,7 @@ import { SubscriptionsService } from '@modules/subscriptions/subscriptions.servi
 import { MessageRole } from '@common/constants/providers.constant';
 import { ChatMessageInput } from '@modules/providers/adapters/provider-adapter.interface';
 import { UsageService } from '../usage/usage.service';
-
+import axios from 'axios';
 @Injectable()
 export class ChatService {
   private readonly logger = new Logger(ChatService.name);

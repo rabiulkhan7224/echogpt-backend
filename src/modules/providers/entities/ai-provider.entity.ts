@@ -10,6 +10,7 @@ import { BaseEntity } from '@common/entities/base.entity';
 import { ProviderType } from '@common/constants/providers.constant';
 import { UserEntity } from '@modules/users/entities/user.entity';
 import { ChatMessageEntity } from '@/modules/chat/entities/chat-message.entity';
+import { ApiUsageLogEntity } from '@/modules/usage/entities/api-usage-log.entity';
 // import { ChatMessageEntity } from '@modules/chat/entities/chat-message.entity';
 // import { ApiUsageLogEntity } from '@modules/usage/entities/api-usage-log.entity';
 
@@ -57,6 +58,6 @@ export class AiProviderEntity extends BaseEntity {
   @OneToMany(() => ChatMessageEntity, (m) => m.provider)
   messages!: ChatMessageEntity[];
 
-  //   @OneToMany(() => ApiUsageLogEntity, (l) => l.provider)
-  //   usageLogs!: ApiUsageLogEntity[];
+  @OneToMany(() => ApiUsageLogEntity, (l) => l.provider)
+  usageLogs!: ApiUsageLogEntity[];
 }

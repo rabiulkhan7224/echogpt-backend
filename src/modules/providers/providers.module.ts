@@ -9,6 +9,7 @@ import { OpenAiAdapter } from './adapters/openai.adapter';
 import { ClaudeAdapter } from './adapters/claude.adapter';
 import { GeminiAdapter } from './adapters/gemini.adapter';
 import { ProvidersController } from './providers.controller';
+import { OpenRouterAdapter } from './adapters/openrouter.adapter';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { ProvidersController } from './providers.controller';
     OpenAiAdapter,
     ClaudeAdapter,
     GeminiAdapter,
+    OpenRouterAdapter,
   ],
   exports: [ProvidersService, ProviderFactory],
 })
